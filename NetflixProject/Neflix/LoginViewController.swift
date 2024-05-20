@@ -10,11 +10,15 @@ import UIKit
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var locateTextField: UITextField!
     @IBOutlet weak var recommendCodeTextField: UITextField!
+    
+    @IBOutlet var textFields: [UITextField]!
+    
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var plusInfoLabel: UILabel!
     @IBOutlet weak var toggleButton: UISwitch!
@@ -38,36 +42,50 @@ class LoginViewController: UIViewController {
     }
     
     private func textFieldConfig() {
-        self.idTextField.attributedPlaceholder = NSAttributedString(string: "이메일 주소 또는 전화번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        self.idTextField.textColor = .white
-        self.idTextField.backgroundColor = .darkGray
-        self.idTextField.borderStyle = .roundedRect
-        self.idTextField.textAlignment = .center
+        let placeholders = ["이메일 주소 또는 전화번호", "비밀번호", "닉네임", "위치", "추천 코드 입력"]
         
-        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        self.passwordTextField.textColor = .white
-        self.passwordTextField.backgroundColor = .darkGray
-        self.passwordTextField.borderStyle = .roundedRect
-        self.passwordTextField.textAlignment = .center
-        self.passwordTextField.isSecureTextEntry = true
+        for i in 0..<textFields.count {
+            self.textFields[i].attributedPlaceholder = NSAttributedString(string: placeholders[i], attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+            self.textFields[i].textColor = .white
+            self.textFields[i].backgroundColor = .darkGray
+            self.textFields[i].borderStyle = .roundedRect
+            self.textFields[i].textAlignment = .center
+            
+            if i == 1 {
+                self.textFields[i].isSecureTextEntry = true
+            }
+        }
         
-        self.nicknameTextField.attributedPlaceholder = NSAttributedString(string: "닉네임", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        self.nicknameTextField.textColor = .white
-        self.nicknameTextField.backgroundColor = .darkGray
-        self.nicknameTextField.borderStyle = .roundedRect
-        self.nicknameTextField.textAlignment = .center
-        
-        self.locateTextField.attributedPlaceholder = NSAttributedString(string: "위치", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        self.locateTextField.textColor = .white
-        self.locateTextField.backgroundColor = .darkGray
-        self.locateTextField.borderStyle = .roundedRect
-        self.locateTextField.textAlignment = .center
-        
-        self.recommendCodeTextField.attributedPlaceholder = NSAttributedString(string: "추천 코드 입력", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        self.recommendCodeTextField.textColor = .white
-        self.recommendCodeTextField.backgroundColor = .darkGray
-        self.recommendCodeTextField.borderStyle = .roundedRect
-        self.recommendCodeTextField.textAlignment = .center
+//        self.idTextField.attributedPlaceholder = NSAttributedString(string: "이메일 주소 또는 전화번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+//        self.idTextField.textColor = .white
+//        self.idTextField.backgroundColor = .darkGray
+//        self.idTextField.borderStyle = .roundedRect
+//        self.idTextField.textAlignment = .center
+//        
+//        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+//        self.passwordTextField.textColor = .white
+//        self.passwordTextField.backgroundColor = .darkGray
+//        self.passwordTextField.borderStyle = .roundedRect
+//        self.passwordTextField.textAlignment = .center
+//        self.passwordTextField.isSecureTextEntry = true
+//        
+//        self.nicknameTextField.attributedPlaceholder = NSAttributedString(string: "닉네임", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+//        self.nicknameTextField.textColor = .white
+//        self.nicknameTextField.backgroundColor = .darkGray
+//        self.nicknameTextField.borderStyle = .roundedRect
+//        self.nicknameTextField.textAlignment = .center
+//        
+//        self.locateTextField.attributedPlaceholder = NSAttributedString(string: "위치", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+//        self.locateTextField.textColor = .white
+//        self.locateTextField.backgroundColor = .darkGray
+//        self.locateTextField.borderStyle = .roundedRect
+//        self.locateTextField.textAlignment = .center
+//        
+//        self.recommendCodeTextField.attributedPlaceholder = NSAttributedString(string: "추천 코드 입력", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+//        self.recommendCodeTextField.textColor = .white
+//        self.recommendCodeTextField.backgroundColor = .darkGray
+//        self.recommendCodeTextField.borderStyle = .roundedRect
+//        self.recommendCodeTextField.textAlignment = .center
     }
     
     private func joinButtonConfig() {
@@ -88,21 +106,7 @@ class LoginViewController: UIViewController {
     }
     
     
-    @IBAction func idTextFieldReturned(_ sender: UITextField) {
+    @IBAction func keyboardDismiss(_ sender: Any) {
+        view.endEditing(true)
     }
-    
-    @IBAction func passwordTextFieldReturned(_ sender: UITextField) {
-    }
-    
-    @IBAction func nicknameTextFieldReturned(_ sender: UITextField) {
-    }
-    
-    @IBAction func locateTextFieldReturned(_ sender: UITextField) {
-    }
-    
-    @IBAction func recommendCodeReturned(_ sender: UITextField) {
-    }
-    
-    
-    
 }

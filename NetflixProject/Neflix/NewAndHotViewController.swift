@@ -10,13 +10,16 @@ import UIKit
 class NewAndHotViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var searchImageView: UIImageView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchTextField: UITextField!
+    
     @IBOutlet weak var releaseButton: UIButton!
     @IBOutlet weak var popularityButton: UIButton!
     @IBOutlet weak var topTenButton: UIButton!
+    
+    @IBOutlet var buttons: [UIButton]!
+    
     @IBOutlet weak var firstTextLabel: UILabel!
     @IBOutlet weak var secondTextLabel: UILabel!
     
@@ -50,63 +53,65 @@ class NewAndHotViewController: UIViewController {
     }
     
     private func buttonConfig() {
-        self.releaseButton.titleLabel?.font = .systemFont(ofSize: 12)
-        self.releaseButton.setTitle("공개 예정", for: .normal)
-        self.releaseButton.setTitleColor(.white, for: .normal)
-        self.releaseButton.setImage(UIImage.blue, for: .normal)
-        
-        self.releaseButton.layer.cornerRadius = 20
-        
-        self.popularityButton.titleLabel?.font = .systemFont(ofSize: 12)
-        self.popularityButton.setTitle("모두의 인기 콘텐츠", for: .normal)
-        self.popularityButton.setTitleColor(.white, for: .normal)
-        self.popularityButton.setImage(UIImage.turquoise, for: .normal)
-        self.popularityButton.layer.cornerRadius = 20
-        
-        self.topTenButton.titleLabel?.font = .systemFont(ofSize: 12)
-        self.topTenButton.setTitle("TOP 10 시리즈", for: .normal)
-        self.topTenButton.setTitleColor(.white, for: .normal)
-        self.topTenButton.setImage(UIImage.pink, for: .normal)
-        self.topTenButton.layer.cornerRadius = 20
+        self.buttons.forEach {
+            if $0.tag == 0 {
+                $0.setTitle("공개 예정", for: .normal)
+                $0.setImage(UIImage.blue, for: .normal)
+            } else if $0.tag == 1 {
+                $0.setTitle("모두의 인기 콘텐츠", for: .normal)
+                $0.setImage(UIImage.turquoise, for: .normal)
+            } else {
+                $0.setTitle("TOP 10 시리즈", for: .normal)
+                $0.setImage(UIImage.pink, for: .normal)
+            }
+            
+            $0.titleLabel?.font = .systemFont(ofSize: 12)
+            $0.setTitleColor(.white, for: .normal)
+            $0.layer.cornerRadius = 20
+        }
     }
     
     @IBAction func releaseButtonTapped(_ sender: UIButton) {
-        self.firstTextLabel.text = "공개 예정 작품이 없습니다."
+        let tag = sender.tag
         
-        self.releaseButton.backgroundColor = .white
-        self.releaseButton.setTitleColor(.black, for: .normal)
+        if tag == 0 {
+            self.firstTextLabel.text = "공개 예정 작품이 없습니다."
+            
+            self.buttons[0].backgroundColor = .white
+            self.buttons[0].setTitleColor(.black, for: .normal)
+            
+            self.buttons[1].backgroundColor = .black
+            self.buttons[1].setTitleColor(.white, for: .normal)
+            
+            self.buttons[2].backgroundColor = .black
+            self.buttons[2].setTitleColor(.white, for: .normal)
+            
+        } else if tag == 1 {
+            self.firstTextLabel.text = "모두의 인기 콘텐츠 작품이 없습니다."
+            
+            self.buttons[0].backgroundColor = .black
+            self.buttons[0].setTitleColor(.white, for: .normal)
+            
+            self.buttons[1].backgroundColor = .white
+            self.buttons[1].setTitleColor(.black, for: .normal)
+            
+            self.buttons[2].backgroundColor = .black
+            self.buttons[2].setTitleColor(.white, for: .normal)
+            
+        } else {
+            self.firstTextLabel.text = "TOP 10 시리즈 작품이 없습니다."
+            
+            self.buttons[0].backgroundColor = .black
+            self.buttons[0].setTitleColor(.white, for: .normal)
+            
+            self.buttons[1].backgroundColor = .black
+            self.buttons[1].setTitleColor(.white, for: .normal)
+            
+            self.buttons[2].backgroundColor = .white
+            self.buttons[2].setTitleColor(.black, for: .normal)
+        }
         
-        self.popularityButton.backgroundColor = .black
-        self.popularityButton.setTitleColor(.white, for: .normal)
-        
-        self.topTenButton.backgroundColor = .black
-        self.topTenButton.setTitleColor(.white, for: .normal)
-    }
-    
-    @IBAction func popularityButtonTapped(_ sender: UIButton) {
-        self.firstTextLabel.text = "모두의 인기 콘텐츠 작품이 없습니다."
-        
-        self.releaseButton.backgroundColor = .black
-        self.releaseButton.setTitleColor(.white, for: .normal)
-        
-        self.popularityButton.backgroundColor = .white
-        self.popularityButton.setTitleColor(.black, for: .normal)
-        
-        self.topTenButton.backgroundColor = .black
-        self.topTenButton.setTitleColor(.white, for: .normal)
-    }
-    
-    @IBAction func topTenButtonTapped(_ sender: UIButton) {
-        self.firstTextLabel.text = "TOP 10 시리즈 작품이 없습니다."
-        
-        self.releaseButton.backgroundColor = .black
-        self.releaseButton.setTitleColor(.white, for: .normal)
-        
-        self.popularityButton.backgroundColor = .black
-        self.popularityButton.setTitleColor(.white, for: .normal)
-        
-        self.topTenButton.backgroundColor = .white
-        self.topTenButton.setTitleColor(.black, for: .normal)
+        view.endEditing(true)
     }
     
     private func textLabelConfig() {
@@ -119,5 +124,10 @@ class NewAndHotViewController: UIViewController {
         self.secondTextLabel.font = .systemFont(ofSize: 13)
         self.secondTextLabel.textAlignment = .center
         self.secondTextLabel.textColor = .lightGray
+    }
+    
+    
+    @IBAction func keyboardDismiss(_ sender: Any) {
+        view.endEditing(true)
     }
 }
